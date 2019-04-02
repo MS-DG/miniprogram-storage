@@ -16,6 +16,12 @@
     "publishConfig": {
         "access": "public"
     },
+    "files": [
+        "src/",
+        "es/",
+        "types/",
+        "dist/"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/ms-dg/miniprogram-storage.git"
