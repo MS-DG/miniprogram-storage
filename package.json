@@ -1,0 +1,32 @@
+{
+    "name": "miniprogram-storage",
+    "version": "0.0.1",
+    "description": "小程序 storage",
+    "main": "dist/index.js",
+    "module": "es/index.js",
+    "types": "types/index.d.ts",
+    "scripts": {
+        "lint": "tslint --project tsconfig.json --fix",
+        "build": "npm run build:es5 && npm run build:es6",
+        "build:es5": "tsc --outDir dist -d --declarationDir types",
+        "build:es6": "tsc -m es6 --target es6 --outDir es -d --declarationDir types",
+        "pretest": "npm run build",
+        "test": "tslint --project tsconfig.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ms-dg/miniprogram-storage.git"
+    },
+    "author": "New Future <npm@newfuture.cc>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ms-dg/miniprogram-storage/issues"
+    },
+    "homepage": "https://github.com/ms-dg/miniprogram-storage#readme",
+    "devDependencies": {
+        "tslint": "^5.15.0",
+        "tslint-config-prettier": "^1.18.0",
+        "tslint-microsoft-contrib": "^6.1.0",
+        "typescript": "^3.4.1"
+    }
+}
