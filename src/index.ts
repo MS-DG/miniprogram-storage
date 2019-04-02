@@ -14,7 +14,9 @@ export const config = {
      * 日志对象
      */
     logger: console as {
+        // tslint:disable-next-line: ban-types
         warn: Function;
+        // tslint:disable-next-line: ban-types
         error: Function;
     },
 };
@@ -28,13 +30,13 @@ export const config = {
 export function getStorage<TResult = unknown, TKey = string>(key: TKey): Promise<TResult> {
     return new Promise<TResult>((resolve, reject) => {
         wx.getStorage({
+            fail: (res: any) => {
+                config.logger && config.logger.warn(`wx.getStorage:${key}`, res);
+                reject(res);
+            },
             key,
             success: (res: { data: TResult | PromiseLike<TResult> | undefined }) => {
                 resolve(res.data);
-            },
-            fail: (res: any) => {
-                config.logger && config.logger.warn("wx.getStorage:" + key, res);
-                reject(res);
             },
         });
     });
@@ -50,18 +52,19 @@ export function getStorage<TResult = unknown, TKey = string>(key: TKey): Promise
 export function setStorage<TData = unknown, TKey = string>(key: TKey, data: TData): Promise<wx.GeneralCallbackResult> {
     return new Promise<wx.GeneralCallbackResult>((resolve, reject) => {
         wx.setStorage({
-            key,
             data,
-            success: resolve,
             fail: (res: any) => {
-                config.logger && config.logger.error("wx.setStorage:" + key, res);
+                config.logger && config.logger.error(`wx.setStorage:${key}`, res);
                 reject(res);
             },
+            key,
+            success: resolve,
         });
     });
 }
 
 declare const console: any;
+// tslint:disable-next-line: no-namespace
 declare namespace wx {
     export function getStorage(op: any): void;
     export function setStorage(op: any): void;

@@ -1,5 +1,5 @@
 {
-    "name": "miniprogram-storage",
+    "name": "@dragongate/miniprogram-storage",
     "version": "0.0.1",
     "description": "小程序 storage",
     "main": "dist/index.js",
@@ -12,6 +12,9 @@
         "build:es6": "tsc -m es6 --target es6 --outDir es -d --declarationDir types",
         "pretest": "npm run build",
         "test": "tslint --project tsconfig.json"
+    },
+    "publishConfig": {
+        "access": "public"
     },
     "repository": {
         "type": "git",
