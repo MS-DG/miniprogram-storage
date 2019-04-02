@@ -24,15 +24,24 @@ export const config = {
 /**
  * 异步读取storage
  * @param key 键
+ * @param defaultValue 默认值
  * @template TResult 返回值类型
  * @template Tkey 键值类型
  */
-export function getStorage<TResult = unknown, TKey = string>(key: TKey): Promise<TResult> {
+export function getStorage<TResult = unknown, TKey extends string = string>(
+    key: TKey,
+    defaultValue?: TResult,
+): Promise<TResult> {
+    const hasDefault = arguments.length > 1;
     return new Promise<TResult>((resolve, reject) => {
         wx.getStorage({
             fail: (res: any) => {
                 config.logger && config.logger.warn(`wx.getStorage:${key}`, res);
-                reject(res);
+                if (hasDefault) {
+                    resolve(defaultValue);
+                } else {
+                    reject(res);
+                }
             },
             key,
             success: (res: { data: TResult | PromiseLike<TResult> | undefined }) => {
@@ -49,7 +58,7 @@ export function getStorage<TResult = unknown, TKey = string>(key: TKey): Promise
  * @template TResult 返回值类型
  * @template Tkey 键值类型
  */
-export function setStorage<TData = unknown, TKey = string>(
+export function setStorage<TData = unknown, TKey extends string = string>(
     key: TKey,
     data: TData,
 ): Promise<wx.GeneralCallbackResult> {
@@ -111,3 +120,9 @@ declare namespace wx {
         errMsg: string;
     }
 }
+
+enum KEYS {
+    a = "x",
+}
+
+removeStorage<KEYS>(KEYS.a);
