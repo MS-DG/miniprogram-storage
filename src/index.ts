@@ -1,8 +1,8 @@
 /*!
- * Module: src/storage
+ * Module: src/index
  * Copyright: (C) Microsoft Corporation. All rights reserved.
  * Created: 2019-03-07 11:53
- * Author: WeilaiL
+ * Author: New Future
  * Summary: Storage 操作封装
  */
 
